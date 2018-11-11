@@ -4,7 +4,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
     function ($scope, $http, $location, toolService, $routeParams) {
 
         $scope.totalPages = 1;
-
+        
         if (!$routeParams.order) {
             $scope.orderURLServidor = "";
             $scope.orderURLCliente = "";
@@ -45,7 +45,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
             }
             $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + `/` + $scope.orderURLCliente);
         }
-
+        
         //getcount
         $http({
             method: 'GET',
@@ -79,7 +79,7 @@ moduleUsuario.controller('usuarioPlistController', ['$scope', '$http', '$locatio
 
         $scope.update = function () {
             $location.url(`usuario/plist/` + $scope.rpp + `/` + $scope.page + '/' + $scope.orderURLCliente);
-        }
+        };
 
 
 

@@ -3,17 +3,13 @@
     <div class="row">
         <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4" style="margin-top: 50px">
             <div class="d-flex justify-content-between flex-wrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Información del usuario</h1>
+                <h1 class="h2">Nuevo usuario</h1>
 
             </div>
             <div class="form-responsive container" >
-                <h3 ng-show="!idError && btnUpdate">Usuario a actualizar</h3>
+                <h3 ng-show="!idError && btnNew">Datos del nuevo usuario</h3>
 
-                <form name="userForm" ng-show="!idError && btnUpdate">
-                    <div class="form-group">
-                        <label>ID</label>
-                        <input type="text" class="form-control" id="id" name="id" ng-disabled="true" ng-model="id" />
-                    </div>
+                <form name="userForm" ng-show="!idError && btnNew">
                     <div class="form-group" ng-class="{ 'has-error' : userForm.dni.$invalid && !userForm.dni.$pristine }">
                         <label>DNI</label>
                         <input type="text" class="form-control" id="dni" name="dni" ng-model="dni" ng-required="true" ng-pattern="/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$/"
@@ -50,17 +46,28 @@
                             Login obligatorio
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group row">
+                        <label>Password</label>
+                        <input type="password" class="form-control" ng-class="{' is-invalid': userForm.pass.$invalid && !userForm.pass.$pristine}"
+                               id="pass" name="pass" ng-model="pass" ng-minlength="6" ng-required="true"/>
+                        <div ng-show="userForm.pass.$error.minlength" class="alert alert-danger" role="alert">
+                            La longitud de la constraseña es demasiado corta
+                        </div>
+                        <div ng-show="!userForm.pass.$valid" class="alert alert-danger" role="alert">
+                            Contraseña obligatoria
+                        </div>
+                    </div>
+<!--                    <div class="form-group">
                         <label>Tipo usuario</label>
                         <input type="text" class="form-control" id="obj_tipoUsuario_desc" name="obj_tipoUsuario_desc" ng-disabled="true" ng-model="obj_tipoUsuario_desc"
                                />
-                    </div>
-                    <button ng-show="!idError && btnUpdate" type="button" class="btn btn-light" ng-click="editar()" ng-disabled="userForm.$invalid">Confirmar cambios</button>
+                    </div>-->
+                    <button ng-show="!idError && btnNew" type="button" class="btn btn-light" ng-click="nuevo()" ng-disabled="userForm.$invalid">Confirmar nuevo usuario</button>
                 </form>
                 <h3 ng-show="idError">Ha habido un error. vuelva a intentarlo</h3>
                 <h3>{{resultado}}</h3>
                 <button type="button" class="btn btn-light" ng-click="goBack()">Volver</button>
-                
+
             </div>
         </main>
     </div>
