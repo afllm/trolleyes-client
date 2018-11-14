@@ -1,6 +1,6 @@
 'use strict'
 
-moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window',
+moduleProducto.controller('productoEditController', ['$scope', '$http', '$location', 'toolService', '$routeParams', '$window',
     function ($scope, $http, $location, toolService, $routeParams, $window) {
 
         $scope.totalPages = 1;
@@ -14,21 +14,20 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 
             $http({
                 method: 'GET',
-                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=get&id=' + $scope.id
+                url: 'http://localhost:8081/trolleyes/json?ob=producto&op=get&id=' + $scope.id
             }).then(function (response) {
                 $scope.status = response.status;
                 $scope.id = response.data.message.id;
-                $scope.nombre = response.data.message.nombre;
-                $scope.dni = response.data.message.dni;
-                $scope.ape1 = response.data.message.ape1;
-                $scope.ape2 = response.data.message.ape2;
-                $scope.login = response.data.message.login;
-                $scope.pass = response.data.message.pass;
-                $scope.obj_tipoUsuario_desc = response.data.message.obj_tipoUsuario.desc;
-                $scope.obj_tipoUsuario_id = response.data.message.obj_tipoUsuario.id;
+                $scope.codigo = response.data.message.desc;
+                $scope.desc = response.data.message.desc;
+                $scope.existencias = response.data.message.existencias;
+                $scope.precio = response.data.message.precio;
+                $scope.foto = response.data.message.foto;
+                $scope.obj_tipoProducto_desc = response.data.message.obj_tipoProducto.desc;
+                $scope.obj_tipoProducto_id = response.data.message.obj_tipoProducto.id;
             }, function (response) {
                 $scope.status = response.status;
-                $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+                $scope.ajaxDataProductos = response.data.message || 'Request failed';
             });
         }
 
@@ -41,26 +40,25 @@ moduleUsuario.controller('usuarioEditController', ['$scope', '$http', '$location
 
             var json = {
                 id: $scope.id,
-                dni: $scope.dni,
-                nombre: $scope.nombre,
-                ape1: $scope.ape1,
-                ape2: $scope.ape2,
-                login: $scope.login,
-                pass: $scope.pass,
-                id_tipoUsuario: $scope.obj_tipoUsuario_id
+                codigo: $scope.codigo,
+                desc: $scope.desc,
+                existencias: $scope.existencias,
+                precio: $scope.precio,
+                foto: $scope.foto,
+                id_tipoProducto: $scope.obj_tipoProducto_id
             }
 
             $http({
                 method: 'POST',
-                url: 'http://localhost:8081/trolleyes/json?ob=usuario&op=update',
+                url: 'http://localhost:8081/trolleyes/json?ob=producto&op=update',
                 params: {json: JSON.stringify(json)}
             }).then(function (response) {
                 $scope.status = response.status;
-                $scope.ajaxDataUsuarios = response.data.message;
+                $scope.ajaxDataProductos = response.data.message;
                 $scope.resultado = "Actualizado con éxito";
             }, function (response) {
                 $scope.status = response.status;
-                $scope.ajaxDataUsuarios = response.data.message || 'Request failed';
+                $scope.ajaxDataProductos = response.data.message || 'Request failed';
                 $scope.resultado = "No se pudo actualizar";
             });
         };
